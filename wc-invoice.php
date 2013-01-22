@@ -163,7 +163,7 @@ function init_invoice_gateway() {
 	 *
 	 */
 	function add_invoice_gateway( $methods ) {
-		$methods[] = 'WC_Invoice';
+		$methods[] = 'WC_Gateway_Invoice';
 		return $methods;
 	}
 	
