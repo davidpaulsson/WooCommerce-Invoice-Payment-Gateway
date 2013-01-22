@@ -103,8 +103,6 @@ function init_invoice_gateway() {
 	    /**
 	     * Output for the order received page.
 	     *
-	     * @access public
-	     * @return void
 	     */
 		function thankyou_page() {
 			if ( $description = $this->get_description() )
@@ -115,10 +113,6 @@ function init_invoice_gateway() {
 	    /**
 	     * Add content to the WC emails.
 	     *
-	     * @access public
-	     * @param WC_Order $order
-	     * @param bool $sent_to_admin
-	     * @return void
 	     */
 		function email_instructions( $order, $sent_to_admin ) {
 	    	if ( $sent_to_admin ) return;
@@ -135,9 +129,6 @@ function init_invoice_gateway() {
 	    /**
 	     * Process the payment and return the result
 	     *
-	     * @access public
-	     * @param int $order_id
-	     * @return array
 	     */
 		function process_payment( $order_id ) {
 			global $woocommerce;
@@ -170,10 +161,6 @@ function init_invoice_gateway() {
 	/**
 	 * Add the gateway to WooCommerce
 	 *
-	 * @access public
-	 * @param array $methods
-	 * @package		WooCommerce/Classes/Payment
-	 * @return array
 	 */
 	function add_invoice_gateway( $methods ) {
 		$methods[] = 'WC_Invoice';
