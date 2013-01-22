@@ -9,9 +9,9 @@ Author URI: http://davidpaulsson.se/
 License: GPLv2
 */
 
-add_action('plugins_loaded', 'init_your_gateway', 0);
+add_action('plugins_loaded', 'init_invoice_gateway', 0);
  
-function init_your_gateway() {
+function init_invoice_gateway() {
  
     if ( ! class_exists( 'woocommerce_payment_gateway' ) ) { return; }
 
