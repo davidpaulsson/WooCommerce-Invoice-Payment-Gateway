@@ -19,7 +19,7 @@ function init_invoice_gateway() {
 	 * Invoice Payment Gateway
 	 *
 	 */
-	class WC_Invoice extends WC_Payment_Gateway {
+	class WC_Gateway_Invoice extends WC_Payment_Gateway {
 	
 	    /**
 	     * Constructor for the gateway.
