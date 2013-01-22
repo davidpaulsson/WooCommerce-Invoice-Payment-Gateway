@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: WooCommerce Invoice Payment Gateway
-Plugin URI: http://
+Plugin URI: https://github.com/davidpaulsson/WooCommerce-Invoice-Payment-Gateway/
 Description: Provides an Invoice Payment Gateway, mainly for B2B segment where instant payment via PayPal etc. is not a viable option.
 Version: 1.0
-Author: Name Of The Plugin Author
-Author URI: http://
-License: GPL2
+Author: David Paulsson
+Author URI: http://davidpaulsson.se/
+License: GPLv2
 */
 
 add_action('plugins_loaded', 'init_your_gateway', 0);
