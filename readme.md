@@ -1,7 +1,7 @@
 # WooCommerce Invoice Payment Gateway
 By [David Paulsson](http://davidpaulsson.se/ "David Paulsson")
 
-## Desctiption
+## Description
 Provides an Invoice Payment Gateway, mainly for the B2B segment where instant payment via PayPal etc. is not a viable option.
 
 ### Important note
