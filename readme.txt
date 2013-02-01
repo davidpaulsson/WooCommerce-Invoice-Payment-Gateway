@@ -26,5 +26,8 @@ This plugin does NOT create the invoices for you. It only completes the order an
 
 == Changelog ==
 
-= 2013.01.22 - 1.0 =
-* First Release
+= 2013.02.01 =
+* New text domain for translation.
+
+= 2013.01.22 =
+* First Release.

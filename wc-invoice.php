@@ -29,7 +29,7 @@ function init_invoice_gateway() {
 	        $this->id				= 'invoice';
 	        $this->icon 			= apply_filters('woocommerce_invoice_icon', '');
 	        $this->has_fields 		= false;
-	        $this->method_title     = __( 'invoice', 'woocommerce' );
+	        $this->method_title     = __( 'invoice', 'dp_wc_invoice' );
 	
 			// Load the form fields.
 			$this->init_form_fields();
@@ -58,22 +58,22 @@ function init_invoice_gateway() {
 	
 	    	$this->form_fields = array(
 				'enabled' => array(
-								'title' => __( 'Enable/Disable', 'woocommerce' ),
+								'title' => __( 'Enable/Disable', 'dp_wc_invoice' ),
 								'type' => 'checkbox',
-								'label' => __( 'Enable Invoice Payment', 'woocommerce' ),
+								'label' => __( 'Enable Invoice Payment', 'dp_wc_invoice' ),
 								'default' => 'yes'
 							),
 				'title' => array(
-								'title' => __( 'Title', 'woocommerce' ),
+								'title' => __( 'Title', 'dp_wc_invoice' ),
 								'type' => 'text',
-								'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
-								'default' => __( 'Invoice Payment', 'woocommerce' )
+								'description' => __( 'This controls the title which the user sees during checkout.', 'dp_wc_invoice' ),
+								'default' => __( 'Invoice Payment', 'dp_wc_invoice' )
 							),
 				'description' => array(
-								'title' => __( 'Customer Message', 'woocommerce' ),
+								'title' => __( 'Customer Message', 'dp_wc_invoice' ),
 								'type' => 'textarea',
-								'description' => __( 'Let the customer know the payee and that they\'ll soon receive an invoice with payment instruction and that their order won\'t be shipping until payment is received.', 'woocommerce' ),
-								'default' => __( 'Thank you for your order. You\'ll be invoiced soon.', 'woocommerce' )
+								'description' => __( 'Let the customer know the payee and that they\'ll soon receive an invoice with payment instruction and that their order won\'t be shipping until payment is received.', 'dp_wc_invoice' ),
+								'default' => __( 'Thank you for your order. You\'ll be invoiced soon.', 'dp_wc_invoice' )
 							)
 				);
 	
@@ -88,8 +88,8 @@ function init_invoice_gateway() {
 		public function admin_options() {
 	
 	    	?>
-	    	<h3><?php _e('Invoice Payment', 'woocommerce'); ?></h3>
-	    	<p><?php _e('Allows invoice payments. Sends an order email to the store admin who\'ll have to manually create and send an invoice to the customer.', 'woocommerce'); ?></p>
+	    	<h3><?php _e('Invoice Payment', 'dp_wc_invoice'); ?></h3>
+	    	<p><?php _e('Allows invoice payments. Sends an order email to the store admin who\'ll have to manually create and send an invoice to the customer.', 'dp_wc_invoice'); ?></p>
 	    	<table class="form-table">
 	    	<?php
 	    		// Generate the HTML For the settings form.
@@ -136,7 +136,7 @@ function init_invoice_gateway() {
 			$order = new WC_Order( $order_id );
 	
 			// Mark as on-hold (we're awaiting the invoice)
-			$order->update_status('on-hold', __('Awaiting payment', 'woocommerce'));
+			$order->update_status('on-hold', __('Awaiting payment', 'dp_wc_invoice'));
 	
 			// Reduce stock levels
 			$order->reduce_order_stock();
