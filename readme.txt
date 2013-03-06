@@ -15,6 +15,8 @@ Provides an Invoice Payment Gateway, mainly for B2B segment where instant paymen
 
 = Important note =
 
+As off WooCommerce 2.0 this plugin DOES NO LONGER WORK! It's no longer in development (it was/is just a quick n' dirty fix) BUT if you're interested in making something with this I'm accepting pull requests over at Github (https://github.com/davidpaulsson/WooCommerce-Invoice-Payment-Gateway).
+
 This plugin does NOT create the invoices for you. It only completes the order and sends out the order confirmation emails. The actual invoices still needs to be created and sent to the customer.
 
 == Installation ==
@@ -25,6 +27,9 @@ This plugin does NOT create the invoices for you. It only completes the order an
 4. Profit
 
 == Changelog ==
+
+= 2013.03.06 =
+* Updated readme file, this plugin is now "dead". Sorry :/
 
 = 2013.02.01 =
 * New text domain for translation.
