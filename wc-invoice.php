@@ -9,6 +9,33 @@ Author URI: http://davidpaulsson.se/
 License: GPLv2
 */
 
+/**
+ * Check if WooCommerce is active
+ **/
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+    // Put your plugin code here
+}
+
+/**
+ * Detecting WC version
+ **/
+
+if ( version_compare( WOOCOMMERCE_VERSION, '2.0', '<' ) ) {
+  // Pre 2.0
+} else {
+  // 2.0
+}
+
+/**
+ * Maintain compatibility with 1.6.6 and 2.0
+ **/
+
+/* 1.6.6 */
+add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
+
+/* 2.0.0 */
+add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+
 add_action('plugins_loaded', 'init_invoice_gateway', 0);
  
 function init_invoice_gateway() {
