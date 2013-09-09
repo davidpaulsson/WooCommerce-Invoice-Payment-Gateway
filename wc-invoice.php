@@ -3,15 +3,25 @@
 Plugin Name: WooCommerce Invoice Payment Gateway
 Plugin URI: https://github.com/davidpaulsson/WooCommerce-Invoice-Payment-Gateway/
 Description: Provides an Invoice Payment Gateway, mainly for B2B segment where instant payment via PayPal etc. is not a viable option.
-Version: 1.0
+Version: 2.0
 Author: David Paulsson
 Author URI: http://davidpaulsson.se/
 License: GPLv2
 */
 
+/** Check if WooCommerce is active **/
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+
+/** Detecting WC version **/
+if ( version_compare( WOOCOMMERCE_VERSION, '2.0', '<' ) ) {
+  add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
+} else {
+  add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+}
+
 add_action('plugins_loaded', 'init_invoice_gateway', 0);
  
-function init_invoice_gateway() {
+    function init_invoice_gateway() {
  
     if ( ! class_exists( 'woocommerce_payment_gateway' ) ) { return; }
 
@@ -26,9 +36,9 @@ function init_invoice_gateway() {
 	     *
 	     */
 		public function __construct() {
-	        $this->id				= 'invoice';
-	        $this->icon 			= apply_filters('woocommerce_invoice_icon', '');
-	        $this->has_fields 		= false;
+	        $this->id		= 'invoice';
+	        $this->icon 		= apply_filters('woocommerce_invoice_icon', '');
+	        $this->has_fields 	= false;
 	        $this->method_title     = __( 'invoice', 'dp_wc_invoice' );
 	
 			// Load the form fields.
@@ -48,8 +58,7 @@ function init_invoice_gateway() {
 	    	// Customer Emails
 	    	add_action('woocommerce_email_before_order_table', array(&$this, 'email_instructions'), 10, 2);
 	    }
-	
-	
+
 	    /**
 	     * Initialise Gateway Settings Form Fields
 	     *
@@ -58,27 +67,26 @@ function init_invoice_gateway() {
 	
 	    	$this->form_fields = array(
 				'enabled' => array(
-								'title' => __( 'Enable/Disable', 'dp_wc_invoice' ),
-								'type' => 'checkbox',
-								'label' => __( 'Enable Invoice Payment', 'dp_wc_invoice' ),
-								'default' => 'yes'
+					'title' => __( 'Enable/Disable', 'dp_wc_invoice' ),
+					'type' => 'checkbox',
+					'label' => __( 'Enable Invoice Payment', 'dp_wc_invoice' ),
+					'default' => 'yes'
 							),
 				'title' => array(
-								'title' => __( 'Title', 'dp_wc_invoice' ),
-								'type' => 'text',
-								'description' => __( 'This controls the title which the user sees during checkout.', 'dp_wc_invoice' ),
-								'default' => __( 'Invoice Payment', 'dp_wc_invoice' )
+					'title' => __( 'Title', 'dp_wc_invoice' ),
+					'type' => 'text',
+					'description' => __( 'This controls the title which the user sees during checkout.', 'dp_wc_invoice' ),
+					'default' => __( 'Invoice Payment', 'dp_wc_invoice' )
 							),
 				'description' => array(
-								'title' => __( 'Customer Message', 'dp_wc_invoice' ),
-								'type' => 'textarea',
-								'description' => __( 'Let the customer know the payee and that they\'ll soon receive an invoice with payment instruction and that their order won\'t be shipping until payment is received.', 'dp_wc_invoice' ),
-								'default' => __( 'Thank you for your order. You\'ll be invoiced soon.', 'dp_wc_invoice' )
+					'title' => __( 'Customer Message', 'dp_wc_invoice' ),
+					'type' => 'textarea',
+					'description' => __( 'Let the customer know the payee and that they\'ll soon receive an invoice with payment instruction and that their order won\'t be shipping until payment is received.', 'dp_wc_invoice' ),
+					'default' => __( 'Thank you for your order. You\'ll be invoiced soon.', 'dp_wc_invoice' )
 							)
 				);
 	
 	    }
-	
 	
 		/**
 		 * Admin Panel Options
@@ -99,7 +107,6 @@ function init_invoice_gateway() {
 	    	<?php
 	    }
 	
-	
 	    /**
 	     * Output for the order received page.
 	     *
@@ -108,7 +115,6 @@ function init_invoice_gateway() {
 			if ( $description = $this->get_description() )
 	        	echo wpautop( wptexturize( $description ) );
 		}
-	
 	
 	    /**
 	     * Add content to the WC emails.
@@ -124,7 +130,6 @@ function init_invoice_gateway() {
 			if ( $description = $this->get_description() )
 	        	echo wpautop( wptexturize( $description ) );
 		}
-	
 	
 	    /**
 	     * Process the payment and return the result
@@ -145,7 +150,7 @@ function init_invoice_gateway() {
 			$woocommerce->cart->empty_cart();
 	
 			// Empty awaiting payment session
-			unset($_SESSION['order_awaiting_payment']);
+			unset( $woocommerce->session->order_awaiting_payment );
 	
 			// Return thankyou redirect
 			return array(
@@ -156,7 +161,6 @@ function init_invoice_gateway() {
 		}
 	
 	}
-	
 	
 	/**
 	 * Add the gateway to WooCommerce
@@ -169,4 +173,5 @@ function init_invoice_gateway() {
 	
 	add_filter('woocommerce_payment_gateways', 'add_invoice_gateway' );
 	
+    }
 }
