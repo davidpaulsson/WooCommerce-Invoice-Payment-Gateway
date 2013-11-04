@@ -12,18 +12,11 @@ License: GPLv2
 /** Check if WooCommerce is active **/
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
-/** Detecting WC version **/
-if ( version_compare( WOOCOMMERCE_VERSION, '2.0', '<' ) ) {
-  add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
-} else {
-  add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-}
 
 add_action('plugins_loaded', 'init_invoice_gateway', 0);
  
     function init_invoice_gateway() {
  
-    if ( ! class_exists( 'woocommerce_payment_gateway' ) ) { return; }
 
 	/**
 	 * Invoice Payment Gateway
@@ -54,6 +47,13 @@ add_action('plugins_loaded', 'init_invoice_gateway', 0);
 			// Actions
 			add_action('woocommerce_update_options_payment_gateways', array(&$this, 'process_admin_options'));
 	    	add_action('woocommerce_thankyou_invoice', array(&$this, 'thankyou_page'));
+
+	    	/** Detecting WC version **/
+			if ( version_compare( WOOCOMMERCE_VERSION, '2.0', '<' ) ) {
+			  add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
+			} else {
+			  add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+			}
 	
 	    	// Customer Emails
 	    	add_action('woocommerce_email_before_order_table', array(&$this, 'email_instructions'), 10, 2);
